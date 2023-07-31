@@ -3,22 +3,30 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-using namespace std;
 
 
 int main() {
-    vector<int> numbers;
-    int n;
-    cin >> n;
 
-    for (int i = 0; i < n; i++) {
-        int b;
-        cin >> b;
-        numbers.push_back(b);
+    std::vector<int> numbers;
+    int size;
+    int point;
+    int start;
+    int end;
+
+    std::cin >> size;
+
+    for (int i = 0; i < size; i++) {
+        int temp;
+        std::cin >> temp;
+        numbers.push_back(temp);
     }
 
-    sort(numbers.begin(), numbers.end());
-    for (int i = 0; i < n; i++)
-        cout << numbers[i] << " ";
+    std::cin >> point >> start >> end;
+    numbers.erase(numbers.begin() + (--point));
+    numbers.erase(numbers.begin() + (--start), numbers.begin() + (--end));
+
+    std::cout << numbers.size() << std::endl;
+    for (auto n : numbers)
+        std::cout << n << " ";
     return 0;
 }
