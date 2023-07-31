@@ -4,22 +4,41 @@
 #include <iostream>
 #include <algorithm>
 
-class UserData {
+class Student {
 public:
-    int age; // they could be private, but there would be setters and getters ;)
-    int standard;
-    std::string surname;
-    std::string name;
+    int GetTotalScore() {
+        return TotalScore;
+    }
+    void input() {
+        int hanlder;
+        for (int i = 0; i < 5; i++) {
+            std::cin >> hanlder;
+            TotalScore += hanlder;
+        }
+    }
+private:
+    int TotalScore;
 };
 
-int main() {
-    UserData data;
 
-    std::cin >> data.age >> data.name >> data.surname >> data.standard;
-    std::cout << data.age << std::endl;
-    std::cout << data.surname << ", " << data.name << std::endl;
-    std::cout << data.standard << "\n\n";
-    std::cout << data.age << "," << data.name << "," << data.surname << "," << data.standard << std::endl;
+int main() {
+
+    std::vector<Student> AllStudents;
+    int StudentsCount;
+    int result = 0;
+
+    std::cin >> StudentsCount;
+    AllStudents.resize(StudentsCount);
+
+    for (int i = 0; i < StudentsCount; i++)
+        AllStudents[i].input();
+
+    for (int i = 1; i < StudentsCount; i++) {
+
+        if (AllStudents[0].GetTotalScore() < AllStudents[i].GetTotalScore())
+            result++;
+    }
+    std::cout << result;
 
     return 0;
 }
