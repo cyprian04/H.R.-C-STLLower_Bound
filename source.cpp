@@ -4,41 +4,83 @@
 #include <iostream>
 #include <algorithm>
 
-class Student {
+class Box {
 public:
-    int GetTotalScore() {
-        return TotalScore;
+    Box()
+        : length(0), breadth(0), height(0)
+    {}
+    Box(int length_in, int breadth_in, int height_in)
+        : length(length_in), breadth(breadth_in), height(height_in)
+    {}
+    Box(Box& src) {
+        length = src.length;
+        breadth = src.breadth;
+        height = src.height;
     }
-    void input() {
-        int hanlder;
-        for (int i = 0; i < 5; i++) {
-            std::cin >> hanlder;
-            TotalScore += hanlder;
-        }
+    long long CalculateVolume() const {
+        return (long long)length * breadth * height;
+    }
+    int getLength() const {
+        return length;
+    }
+    int getBreadth() const {
+        return breadth;
+    }
+    int getHeight() const {
+        return height;
+    }
+    bool operator<(const Box& rhs) {
+        return (length < rhs.length) ||
+            (breadth < rhs.breadth&& length == rhs.length) ||
+            (height < rhs.height&& breadth == rhs.breadth && length == rhs.length);
     }
 private:
-    int TotalScore;
+    int length;
+    int breadth;
+    int height;
 };
+
+std::ostream& operator<<(std::ostream& out, const Box& src) {
+    return out << src.getLength() << " " << src.getBreadth() << " " << src.getHeight();
+}
 
 
 int main() {
 
-    std::vector<Student> AllStudents;
-    int StudentsCount;
-    int result = 0;
+    int entries = 0;
+    std::cin >> entries;
+    Box temp;
+    for (int i = 0; i < entries; i++) {
 
-    std::cin >> StudentsCount;
-    AllStudents.resize(StudentsCount);
+        int type = 0;
+        std::cin >> type;
 
-    for (int i = 0; i < StudentsCount; i++)
-        AllStudents[i].input();
+        if (type == 1)
+            std::cout << temp << std::endl;
+        if (type == 2) {
+            int l, b, h;
+            std::cin >> l >> b >> h;
+            Box newB(l, b, h);
+            temp = newB;
+            std::cout << temp << std::endl;
+        }
+        if (type == 3) {
 
-    for (int i = 1; i < StudentsCount; i++) {
+            int l, b, h;
+            std::cin >> l >> b >> h;
+            Box newB(l, b, h);
 
-        if (AllStudents[0].GetTotalScore() < AllStudents[i].GetTotalScore())
-            result++;
+            if (newB < temp)
+                std::cout << "Lesser\n";
+            else
+                std::cout << "Greater\n";
+        }
+        if (type == 4)
+            std::cout << temp.CalculateVolume() << std::endl;
+        if (type == 5) {
+            Box newB(temp);
+            std::cout << newB << std::endl;
+        }
     }
-    std::cout << result;
-
     return 0;
 }
