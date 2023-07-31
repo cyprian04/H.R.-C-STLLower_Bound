@@ -3,33 +3,22 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+using namespace std;
 
 
 int main() {
-    std::vector<int> numbers;
-    int size;
-    int nQueries;
+    vector<int> numbers;
+    int n;
+    cin >> n;
 
-    std::cin >> size;
-    for (int i = 0; i < size; i++) {
-        int temp;
-        std::cin >> temp;
-        numbers.push_back(temp);
+    for (int i = 0; i < n; i++) {
+        int b;
+        cin >> b;
+        numbers.push_back(b);
     }
-    std::cin >> nQueries;
 
-    for (int i = 0; i < nQueries; i++) {
-        int temp = 0;
-        std::cin >> --temp;
-        auto point = std::lower_bound(numbers.begin(), numbers.end(), temp);
-        // if number that we typed occures then we print Yes and it's index location(pos in vector)
-        // if the number is not present you have to print "No" (without the quotes) followed by the
-        // index of the next smallest number just greater than that number.
-
-        if (temp == *point)
-            std::cout << "Yes " << ++point - numbers.begin() << std::endl;
-        else
-            std::cout << "No " << ++point - numbers.begin() << std::endl;
-    }
+    sort(numbers.begin(), numbers.end());
+    for (int i = 0; i < n; i++)
+        cout << numbers[i] << " ";
     return 0;
 }
