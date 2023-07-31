@@ -3,21 +3,23 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-using namespace std;
 
-
-struct PersonalData {
-    int value1;
-    int value2;
-    std::string valueN;
-    std::string valueS;
+class UserData {
+public:
+    int age; // they could be private, but there would be setters and getters ;)
+    int standard;
+    std::string surname;
+    std::string name;
 };
 
-
 int main() {
+    UserData data;
 
-    PersonalData dt;
-    cin >> dt.value1 >> dt.valueN >> dt.valueS >> dt.value2;
-    cout << dt.value1 << " " << dt.valueN << " " << dt.valueS << " " << dt.value2;
+    std::cin >> data.age >> data.name >> data.surname >> data.standard;
+    std::cout << data.age << std::endl;
+    std::cout << data.surname << ", " << data.name << std::endl;
+    std::cout << data.standard << "\n\n";
+    std::cout << data.age << "," << data.name << "," << data.surname << "," << data.standard << std::endl;
+
     return 0;
 }
