@@ -3,83 +3,58 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <cassert>
+using namespace std;
 
-class Box {
+/*Write the class AddElements here*/
+// This implemenation works only for c++11 standard on HackerRank test cases
+//for unknow reasons we can't pass all test cases in c++14 and c++20 standard, although the implementation is the same. HackerRank int main() and my int mian() for inputs were the same
+template <typename T>
+class AddElements {
 public:
-    Box()
-        : length(0), breadth(0), height(0)
-    {}
-    Box(int length_in, int breadth_in, int height_in)
-        : length(length_in), breadth(breadth_in), height(height_in)
-    {}
-    Box(Box& src) {
-        length = src.length;
-        breadth = src.breadth;
-        height = src.height;
-    }
-    long long CalculateVolume() const {
-        return (long long)length * breadth * height;
-    }
-    int getLength() const {
-        return length;
-    }
-    int getBreadth() const {
-        return breadth;
-    }
-    int getHeight() const {
-        return height;
-    }
-    bool operator<(const Box& rhs) {
-        return (length < rhs.length) ||
-            (breadth < rhs.breadth&& length == rhs.length) ||
-            (height < rhs.height&& breadth == rhs.breadth && length == rhs.length);
+    AddElements(const T& element) : element(element) {}
+    T add(const T& src)
+    {
+        return element += src;
     }
 private:
-    int length;
-    int breadth;
-    int height;
+    T element;
 };
 
-std::ostream& operator<<(std::ostream& out, const Box& src) {
-    return out << src.getLength() << " " << src.getBreadth() << " " << src.getHeight();
-}
-
+template <> class AddElements<std::string> { // class template specialization
+public:
+    AddElements(const std::string& element) : element(element) {}
+    std::string concatenate(const std::string& src)
+    {
+        return element += src;
+    }
+private:
+    std::string element;
+};
 
 int main() {
-
-    int entries = 0;
-    std::cin >> entries;
-    Box temp;
-    for (int i = 0; i < entries; i++) {
-
-        int type = 0;
-        std::cin >> type;
-
-        if (type == 1)
-            std::cout << temp << std::endl;
-        if (type == 2) {
-            int l, b, h;
-            std::cin >> l >> b >> h;
-            Box newB(l, b, h);
-            temp = newB;
-            std::cout << temp << std::endl;
+    int n, i;
+    cin >> n;
+    for (i = 0; i < n; i++) {
+        string type;
+        cin >> type;
+        if (type == "float") {
+            double element1, element2;
+            cin >> element1 >> element2;
+            AddElements<double> myfloat(element1);
+            cout << myfloat.add(element2) << endl;
         }
-        if (type == 3) {
-
-            int l, b, h;
-            std::cin >> l >> b >> h;
-            Box newB(l, b, h);
-
-            if (newB < temp)
-                std::cout << "Lesser\n";
-            else
-                std::cout << "Greater\n";
+        else if (type == "int") {
+            int element1, element2;
+            cin >> element1 >> element2;
+            AddElements<int> myint(element1);
+            cout << myint.add(element2) << endl;
         }
-        if (type == 4)
-            std::cout << temp.CalculateVolume() << std::endl;
-        if (type == 5) {
-            Box newB(temp);
-            std::cout << newB << std::endl;
+        else if (type == "string") {
+            string element1, element2;
+            cin >> element1 >> element2;
+            AddElements<string> mystring(element1);
+            cout << mystring.concatenate(element2) << endl;
         }
     }
     return 0;
