@@ -3,28 +3,24 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <sstream>
 using namespace std;
 
-void parseInts(string str) {
-
-    stringstream ss(str);
-    vector<int> liczby;
-    char ch;
-    int temp;
-
-    while (ss) {
-        ss >> temp >> ch;
-        liczby.push_back(temp);
-    }
-
-    for (int i = 0; i < int(liczby.size()); i++)
-        cout << liczby[i] << endl;
-}
-
 int main() {
-    string ABC;
-    cin >> ABC;
-    parseInts(ABC);
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    string tekst1;
+    string tekst2;
+
+    cin >> tekst1 >> tekst2;
+
+    int sizeOfFirst = tekst1.length();
+    int sizeOfSecond = tekst2.length();
+    string Together = tekst1 + tekst2;
+    string A = tekst2.substr(0, 1);
+    string B = tekst1.substr(0, 1);
+    string Substr = A + tekst1.erase(0, 1) + " " + B + tekst2.erase(0, 1);
+    cout << sizeOfFirst << " " << sizeOfSecond << endl;
+    cout << Together << endl;
+    cout << Substr << endl;
     return 0;
 }
+
