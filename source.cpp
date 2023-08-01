@@ -3,59 +3,25 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <cassert>
-using namespace std;
 
-/*Write the class AddElements here*/
-// This implemenation works only for c++11 standard on HackerRank test cases
-//for unknow reasons we can't pass all test cases in c++14 and c++20 standard, although the implementation is the same. HackerRank int main() and my int mian() for inputs were the same
-template <typename T>
-class AddElements {
+class Triangle {
 public:
-    AddElements(const T& element) : element(element) {}
-    T add(const T& src)
-    {
-        return element += src;
+    void triangle() {
+        std::cout << "I am a triangle\n";
     }
-private:
-    T element;
 };
 
-template <> class AddElements<std::string> { // class template specialization
+class Isosceles : public Triangle {
 public:
-    AddElements(const std::string& element) : element(element) {}
-    std::string concatenate(const std::string& src)
-    {
-        return element += src;
+    void isosceles() {
+        std::cout << "I am an isosceles triangle\n";
+        std::cout << "In an isosceles triangle two sides are equal\n";
+        Triangle::triangle(); // acessing parent class function
     }
-private:
-    std::string element;
 };
 
 int main() {
-    int n, i;
-    cin >> n;
-    for (i = 0; i < n; i++) {
-        string type;
-        cin >> type;
-        if (type == "float") {
-            double element1, element2;
-            cin >> element1 >> element2;
-            AddElements<double> myfloat(element1);
-            cout << myfloat.add(element2) << endl;
-        }
-        else if (type == "int") {
-            int element1, element2;
-            cin >> element1 >> element2;
-            AddElements<int> myint(element1);
-            cout << myint.add(element2) << endl;
-        }
-        else if (type == "string") {
-            string element1, element2;
-            cin >> element1 >> element2;
-            AddElements<string> mystring(element1);
-            cout << mystring.concatenate(element2) << endl;
-        }
-    }
+    Isosceles isc;
+    isc.isosceles();
     return 0;
 }
