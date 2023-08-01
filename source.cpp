@@ -4,24 +4,28 @@
 #include <iostream>
 #include <algorithm>
 
-class Triangle {
+class Triangle { // A
 public:
-    void triangle() {
-        std::cout << "I am a triangle\n";
-    }
+    void print() { std::cout << "I am a triangle\n"; }
 };
 
-class Isosceles : public Triangle {
+class Isosceles : public Triangle { // B inherits A
 public:
-    void isosceles() {
-        std::cout << "I am an isosceles triangle\n";
-        std::cout << "In an isosceles triangle two sides are equal\n";
-        Triangle::triangle(); // acessing parent class function
+    void print() { std::cout << "I am an isosceles triangle\n"; }
+};
+
+class Equilateral : public Isosceles { // C inherits B
+public:
+    void print() {
+        std::cout << "I am an equilateral triangle\n";
+        Isosceles::print();
+        Triangle::print();
     }
 };
 
 int main() {
-    Isosceles isc;
-    isc.isosceles();
+
+    Equilateral obj;
+    obj.print();
     return 0;
 }
