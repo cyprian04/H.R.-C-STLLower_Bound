@@ -3,33 +3,28 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-
+#include <set>
 
 int main() {
-    std::vector<int> numbers;
-    int size;
-    int nQueries;
 
-    std::cin >> size;
-    for (int i = 0; i < size; i++) {
-        int temp;
-        std::cin >> temp;
-        numbers.push_back(temp);
-    }
-    std::cin >> nQueries;
+    int nQueires, type, key;
+    std::set<int> mySet;
+    std::cin >> nQueires;
 
-    for (int i = 0; i < nQueries; i++) {
-        int temp = 0;
-        std::cin >> --temp;
-        auto point = std::lower_bound(numbers.begin(), numbers.end(), temp);
-        // if number that we typed occures then we print Yes and it's index location(pos in vector)
-        // if the number is not present you have to print "No" (without the quotes) followed by the
-        // index of the next smallest number just greater than that number.
-
-        if (temp == *point)
-            std::cout << "Yes " << ++point - numbers.begin() << std::endl;
-        else
-            std::cout << "No " << ++point - numbers.begin() << std::endl;
+    for (int i = 0; i < nQueires; i++)
+    {
+        std::cin >> type >> key;
+        if (type == 1)
+            mySet.insert(key);
+        if (type == 2 && mySet.find(key) != mySet.end())
+            mySet.erase(key);
+        if (type == 3)
+        {
+            if (mySet.find(key) != mySet.end())
+                std::cout << "Yes\n";
+            else
+                std::cout << "No\n";
+        }
     }
     return 0;
 }
