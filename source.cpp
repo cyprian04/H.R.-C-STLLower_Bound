@@ -3,27 +3,34 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <set>
+#include <map>
 
 int main() {
 
-    int nQueires, type, key;
-    std::set<int> mySet;
-    std::cin >> nQueires;
+    std::map<std::string, int> myMap;
+    int nQueries, type, score;
+    std::string name;
+    std::cin >> nQueries;
 
-    for (int i = 0; i < nQueires; i++)
-    {
-        std::cin >> type >> key;
-        if (type == 1)
-            mySet.insert(key);
-        if (type == 2 && mySet.find(key) != mySet.end())
-            mySet.erase(key);
+    for (int n = 0; n < nQueries; n++) {
+
+        std::cin >> type >> name;
+        auto i = myMap.find(name); // setting the iterator on key position in map, we don't have to, but we are typing less ;)
+        if (type == 1) {
+            std::cin >> score;
+            if (i == myMap.end())
+                myMap.insert({ name, score }); // if we use emplace we don't need {}     
+            else
+                i->second += score;
+        }
+        if (type == 2)
+            i->second = 0; // setting score of a student to 0
         if (type == 3)
         {
-            if (mySet.find(key) != mySet.end())
-                std::cout << "Yes\n";
+            if (i != myMap.end()) //checking if key already exists
+                std::cout << i->second << std::endl;
             else
-                std::cout << "No\n";
+                std::cout << 0 << std::endl;
         }
     }
     return 0;
