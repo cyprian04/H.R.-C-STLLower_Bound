@@ -1,30 +1,46 @@
 ﻿#include <cmath>
-#include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
+#include <string>
 #include <sstream>
-using namespace std;
 
-void parseInts(string str) {
-
-    stringstream ss(str);
-    vector<int> liczby;
-    char ch;
-    int temp;
-
-    while (ss) {
-        ss >> temp >> ch;
-        liczby.push_back(temp);
+class Complex
+{
+public:
+    Complex() = default;
+    Complex(int a, int b)
+        : a(a), b(b)
+    {}
+    Complex operator+(const Complex& rhs)
+    {
+        a += rhs.a;
+        b += rhs.b;
+        return *this;
     }
-
-    for (int i = 0; i < int(liczby.size()); i++)
-        cout << liczby[i] << endl;
-}
+    friend std::ostream& operator<<(std::ostream& out, const Complex& src)
+    {
+        return  out << src.a << "+i" << src.b;
+    }
+    int a;
+    int b;
+};
 
 int main() {
-    string ABC;
-    cin >> ABC;
-    parseInts(ABC);
+
+    char temp;
+    int a, b;
+    std::string val1, val2;
+    std::cin >> val1 >> val2;
+
+    std::stringstream s1(val1); //using stringstream to extract only int values
+    std::stringstream s2(val2);
+
+    s1 >> a >> temp >> temp >> b;
+    Complex A(a, b);
+
+    s2 >> a >> temp >> temp >> b;
+    Complex B(a, b);
+
+    Complex C = A + B;
+    std::cout << C;
     return 0;
 }
